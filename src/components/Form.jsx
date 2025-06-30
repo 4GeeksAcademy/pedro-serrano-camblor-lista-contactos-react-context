@@ -5,27 +5,28 @@ const Form = () => (
     <form>
 
         <div className="mb-3">
-            <label for="exampleInputFullName" className="form-label">Full name</label>
-            <input type="email" className="form-control" id="exampleInputFullName" aria-describedby="emailHelp" />
-            <div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div>
+            <label for="inputFullName" className="form-label">Full name</label>
+            <input type="text" className="form-control" id="inputFullName" placeholder="Full name" />
         </div>
 
         <div className="mb-3">
-            <label for="exampleInputEmail1" className="form-label">Email address</label>
-            <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
-            <div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div>
+            <label for="inputEmail" className="form-label" >Email address </label>
+            <input type="email" className="form-control" id="inputEmail" placeholder="Enter email" />
         </div>
 
         <div className="mb-3">
-            <label for="exampleInputPassword1" className="form-label">Password</label>
-            <input type="password" className="form-control" id="exampleInputPassword1" />
+            <label for="inputPhone" className="form-label">Phone</label>
+            <input type="number" className="form-control" id="inputPhone" placeholder="Enter phone number" />
         </div>
 
-        <div className="mb-3 form-check">
-            <input type="checkbox" className="form-check-input" id="exampleCheck1" />
-            <label className="form-check-label" for="exampleCheck1">Check me out</label>
+        <div className="mb-3">
+            <label for="inputAddress" className="form-label">Address</label>
+            <input type="text" className="form-control" id="inputAddress" placeholder="Enter address" />
         </div>
-        <button type="submit" className="btn btn-primary">Save</button>
+
+        <div className="position-relative">
+            <button type="submit" className="btn btn-success start-50">Save contact</button>
+        </div>
     </form>
 
 );
