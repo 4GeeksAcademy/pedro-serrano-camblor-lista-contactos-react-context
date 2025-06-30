@@ -1,35 +1,116 @@
-/* import { Link } from "react-router-dom";
- */
-const Form = () => (
+import React, { useState } from "react";
 
-    <form>
+const Form = () => {
+    const [newContact, setNewContact] = useState({
+        name: "",
+        email: "",
+        phone: "",
+        address: ""
+    });
 
-        <div className="mb-3">
-            <label for="inputFullName" className="form-label">Full name</label>
-            <input type="text" className="form-control" id="inputFullName" placeholder="Full name" />
-        </div>
+    // Actualiza el campo del contacto al escribir
+    function actualizarCampoContacto(evento) {
+        setNewContact({
+            ...newContact,
+            [evento.target.name]: evento.target.value
+        });
+    }
 
-        <div className="mb-3">
-            <label for="inputEmail" className="form-label" >Email address </label>
-            <input type="email" className="form-control" id="inputEmail" placeholder="Enter email" />
-        </div>
+    // Envía el contacto a la API
+    function guardarContactoEnAPI(evento) {
+        evento.preventDefault();
 
-        <div className="mb-3">
-            <label for="inputPhone" className="form-label">Phone</label>
-            <input type="number" className="form-control" id="inputPhone" placeholder="Enter phone number" />
-        </div>
+        fetch("https://playground.4geeks.com/contact/agendas/pedro-sc/contacts", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(newContact)
+        })
+            .then((response) => {
+                if (!response.ok) {
+                    console.error("Error al guardar el contacto:", response.status);
+                    alert("Error saving contact");
+                    return;
+                }
+                alert("New contact successfully added");
+                return response.json();
+            })
+            .then((data) => {
+                if (data) {
+                    setNewContact({ name: "", email: "", phone: "", address: "" });
+                    console.log("Contacto guardado:", data);
+                }
+            })
+            .catch((error) => console.error("Error:", error));
 
-        <div className="mb-3">
-            <label for="inputAddress" className="form-label">Address</label>
-            <input type="text" className="form-control" id="inputAddress" placeholder="Enter address" />
-        </div>
+    }
 
-        <div className="position-relative">
-            <button type="submit" className="btn btn-success start-50">Save contact</button>
-        </div>
-    </form>
+    return (
+        <form onSubmit={guardarContactoEnAPI}>
+            <div className="mb-3">
+                <label htmlFor="inputName" className="form-label">Full name</label>
+                <input
+                    type="text"
+                    className="form-control"
+                    id="inputName"
+                    name="name"
+                    value={newContact.name}
+                    onChange={actualizarCampoContacto}
+                    placeholder="Full name"
+                    required
+                />
+            </div>
 
-);
+            <div className="mb-3">
+                <label htmlFor="inputEmail" className="form-label">Email address</label>
+                <input
+                    type="email"
+                    className="form-control"
+                    id="inputEmail"
+                    name="email"
+                    value={newContact.email}
+                    onChange={actualizarCampoContacto}
+                    placeholder="Enter email"
+                    required
+                />
+            </div>
+
+            <div className="mb-3">
+                <label htmlFor="inputPhone" className="form-label">Phone</label>
+                <input
+                    type="tel"
+                    className="form-control"
+                    id="inputPhone"
+                    name="phone"
+                    value={newContact.phone}
+                    onChange={actualizarCampoContacto}
+                    placeholder="Enter phone number"
+                    required
+                />
+            </div>
+
+            <div className="mb-3">
+                <label htmlFor="inputAddress" className="form-label">Address</label>
+                <input
+                    type="text"
+                    className="form-control"
+                    id="inputAddress"
+                    name="address"
+                    value={newContact.address}
+                    onChange={actualizarCampoContacto}
+                    placeholder="Enter address"
+                    required
+                />
+            </div>
+
+            <div className="text-center">
+                <button type="submit" className="btn btn-success">
+                    Save contact
+                </button>
+            </div>
+        </form>
+    );
+};
+
 export default Form;
-
-

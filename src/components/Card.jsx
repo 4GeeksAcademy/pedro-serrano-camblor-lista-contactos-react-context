@@ -1,20 +1,32 @@
-/* import { Link } from "react-router-dom";
- */
-const Card = () => (
+import React from "react";
 
-  <div className="contact-card">
-    <img src="data:image/png;base64,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" alt="Profile Photo" />
-    <div className="contact-info">
-      <h3>Mike Anamendolla</h3>
-      <p><i className="fas fa-map-marker-alt"></i> 5842 Hillcrest Rd</p>
-      <p><i className="fas fa-phone"></i> (870) 288-4149</p>
-      <p><i className="fas fa-envelope"></i> mike.ana@example.com</p>
-    </div>
-    <div className="contact-actions">
-      <i className="fas fa-pencil-alt"></i>
-      <i className="fas fa-trash"></i>
-    </div>
-  </div>
+const Card = ({ contact, onDelete }) => {
+  return (
+    <div className="contact-card d-flex align-items-center justify-content-between border p-3 my-2">
+      <div className="d-flex align-items-center">
+        <img
+          src="https://via.placeholder.com/80"
+          alt="Profile"
+          className="rounded-circle me-3"
+        />
+        <div>
+          <h5>{contact.name}</h5>
+          <p><i className="fas fa-map-marker-alt me-2"></i>{contact.address}</p>
+          <p><i className="fas fa-phone me-2"></i>{contact.phone}</p>
+          <p><i className="fas fa-envelope me-2"></i>{contact.email}</p>
+        </div>
+      </div>
 
-);
+      <div className="d-flex flex-column">
+        <button className="btn btn-outline-secondary mb-2">
+          <i className="fas fa-pencil-alt"></i>
+        </button>
+        <button className="btn btn-outline-danger" onClick={() => onDelete(contact.id)}>
+          <i className="fas fa-trash"></i>
+        </button>
+      </div>
+    </div>
+  );
+};
+
 export default Card;
