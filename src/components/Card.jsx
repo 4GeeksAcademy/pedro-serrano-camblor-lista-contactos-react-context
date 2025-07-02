@@ -6,7 +6,7 @@ const Card = ({ contact, onDelete }) => {
     <div className="contact-card d-flex align-items-center justify-content-between border p-3 my-2">
       <div className="d-flex align-items-center">
         <img
-          src="https://via.placeholder.com/80"
+          src="https://cdn-icons-png.flaticon.com/512/8767/8767823.png"
           alt="Profile"
           className="rounded-circle me-3"
         />

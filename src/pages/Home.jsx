@@ -10,7 +10,9 @@ export const Home = () => {
 	}, []);
 
 	function getContacts() {
-		fetch("https://playground.4geeks.com/contact/agendas/pedro-sc/contacts")
+		fetch("https://playground.4geeks.com/contact/agendas/pedro-sc/contacts", {
+			method: "GET",
+		})
 			.then((res) => res.json())
 			.then((data) => {
 				if (Array.isArray(data.contacts)) {
