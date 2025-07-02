@@ -1,23 +1,13 @@
 import React, { useState } from "react";
 
 const Form = () => {
-    const [newContact, setNewContact] = useState({
-        name: "",
-        email: "",
-        phone: "",
-        address: ""
-    });
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [phone, setPhone] = useState("");
+    const [address, setAddress] = useState("");
 
-    // Actualiza el campo del contacto al escribir
-    function actualizarCampoContacto(evento) {
-        setNewContact({
-            ...newContact,
-            [evento.target.name]: evento.target.value
-        });
-    }
+    function createContact(evento) {
 
-    // Envía el contacto a la API
-    function guardarContactoEnAPI(evento) {
         evento.preventDefault();
 
         fetch("https://playground.4geeks.com/contact/agendas/pedro-sc/contacts", {
@@ -25,7 +15,12 @@ const Form = () => {
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(newContact)
+            body: JSON.stringify({
+                name: name,
+                email: email,
+                phone: phone,
+                address: address,
+            })
         })
             .then((response) => {
                 if (!response.ok) {
@@ -38,25 +33,27 @@ const Form = () => {
             })
             .then((data) => {
                 if (data) {
-                    setNewContact({ name: "", email: "", phone: "", address: "" });
+                    // Vacío los campos tras guardar
+                    setName("");
+                    setEmail("");
+                    setPhone("");
+                    setAddress("");
                     console.log("Contacto guardado:", data);
                 }
             })
             .catch((error) => console.error("Error:", error));
-
     }
 
     return (
-        <form onSubmit={guardarContactoEnAPI}>
+        <form onSubmit={createContact}>
             <div className="mb-3">
                 <label htmlFor="inputName" className="form-label">Full name</label>
                 <input
                     type="text"
                     className="form-control"
                     id="inputName"
-                    name="name"
-                    value={newContact.name}
-                    onChange={actualizarCampoContacto}
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
                     placeholder="Full name"
                     required
                 />
@@ -68,9 +65,8 @@ const Form = () => {
                     type="email"
                     className="form-control"
                     id="inputEmail"
-                    name="email"
-                    value={newContact.email}
-                    onChange={actualizarCampoContacto}
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     placeholder="Enter email"
                     required
                 />
@@ -79,12 +75,11 @@ const Form = () => {
             <div className="mb-3">
                 <label htmlFor="inputPhone" className="form-label">Phone</label>
                 <input
-                    type="tel"
+                    type="number"
                     className="form-control"
                     id="inputPhone"
-                    name="phone"
-                    value={newContact.phone}
-                    onChange={actualizarCampoContacto}
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
                     placeholder="Enter phone number"
                     required
                 />
@@ -96,9 +91,8 @@ const Form = () => {
                     type="text"
                     className="form-control"
                     id="inputAddress"
-                    name="address"
-                    value={newContact.address}
-                    onChange={actualizarCampoContacto}
+                    value={address}
+                    onChange={(e) => setAddress(e.target.value)}
                     placeholder="Enter address"
                     required
                 />

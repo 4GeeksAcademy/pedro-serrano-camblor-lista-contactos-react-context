@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 
 const Card = ({ contact, onDelete }) => {
   return (
@@ -18,9 +19,11 @@ const Card = ({ contact, onDelete }) => {
       </div>
 
       <div className="d-flex flex-column">
+
         <button className="btn btn-outline-secondary mb-2">
           <i className="fas fa-pencil-alt"></i>
         </button>
+
         <button className="btn btn-outline-danger" onClick={() => onDelete(contact.id)}>
           <i className="fas fa-trash"></i>
         </button>
