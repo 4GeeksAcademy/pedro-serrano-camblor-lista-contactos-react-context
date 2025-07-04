@@ -9,7 +9,7 @@ export const Home = () => {
 		getContacts();
 	}, []);
 
-	function getContacts() {
+	/* function getContacts() {
 		fetch("https://playground.4geeks.com/contact/agendas/pedro-sc/contacts", {
 			method: "GET",
 		})
@@ -20,6 +20,19 @@ export const Home = () => {
 				}
 			})
 			.catch((err) => console.error("Error al cargar contactos:", err));
+	} */
+
+	async function getContacts() {
+		try {
+			const response = await fetch('https://playground.4geeks.com/contact/agendas/pedro-sc/contacts');
+			const data = await response.json();
+			if (Array.isArray(data.contacts)) {
+				setContacts(data.contacts);
+			}
+			console.log('Datos:', data);
+		} catch (error) {
+			console.error('Error al obtener los datos:', error);
+		}
 	}
 
 	function eliminarContacto(id) {

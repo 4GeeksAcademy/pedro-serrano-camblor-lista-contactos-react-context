@@ -26,7 +26,7 @@ export const NewContact = () => {
                 <div className="col-6"></div>
                 <div className="col-6">
                     <NavLink to="/">
-                        <span>Back home</span>
+                        <span>Back to contacts</span>
                     </NavLink>
                 </div>
                 <div className="col-6"></div>
